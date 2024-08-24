@@ -9,7 +9,7 @@ import { execSync as exec } from "child_process";
 import chalk from "chalk";
 import { input } from "@inquirer/prompts";
 import { createSpinner } from "nanospinner";
-// const sleep = (ms = 200) => new Promise((r) => setTimeout(r, ms));
+const sleep = (ms = 200) => new Promise((r) => setTimeout(r, ms));
 const cwd = process.cwd();
 
 const execCommand = async (command: string, cwd: string) => {
@@ -32,20 +32,27 @@ const main = async () => {
       "nodemon",
     ];
     const dirName = await getDirName();
-    console.log(chalk.blue("dir:"), dirName);
     const appDir = joinPath(cwd, dirName);
+    console.log(chalk.blue("dir:"), appDir);
     fs.mkdirSync(appDir);
     execCommand("pnpm init", appDir);
+    await sleep();
     execCommand("git init", appDir);
     installDev(devDependencies, appDir);
     writePrettierrc(appDir);
     writeEslint(appDir);
     writeTsConf(appDir);
     addGitIgnore(appDir);
-    execCommand('npm pkg set scripts.build="tsc --build"', appDir);
+    execCommand('npm pkg set scripts.build="tsc"', appDir);
+    execCommand('npm pkg set scripts.dev="npx nodemon"', appDir);
+    execCommand('npm pkg set scripts.start="ts-node src/index.ts"', appDir);
     addNodemon(appDir);
-    execCommand("pnpm init", appDir);
     fs.mkdirSync(joinPath(appDir, "src"));
+    fs.writeFileSync(
+      joinPath(appDir, "src/index.ts"),
+      "console.log('Hello World!')",
+    );
+    setupSuccessLog();
   }
 };
 
@@ -70,7 +77,7 @@ const getDirName = async () => {
 
 const installDev = (depen: string[], cwd: string) => {
   depen.forEach((d) => {
-    const spinner = createSpinner(`+ ${d}`).start();
+    const spinner = createSpinner(`+ ${chalk.blueBright(d)}`).start();
     spinner.spin();
     exec(`pnpm add -D ${d}`, { cwd: cwd });
     spinner.success();
@@ -85,6 +92,7 @@ const writeFile = (dirPath: string, fileName: string, data: string) => {
     spinner.success();
   } catch (err) {
     spinner.error();
+    console.log(chalk.red(`Unable to write: -${fileName}`));
   }
 };
 
@@ -156,4 +164,20 @@ const addNodemon = (dirPath: string) => {
   writeFile(dirPath, "nodemon.json", data);
 };
 
+const setupSuccessLog = () => {
+  console.log(`
+${chalk.green("✔")} ${chalk.bold("Project setup complete!")}
+
+${chalk.cyan("You can now start developing your project:")}
+
+1. ${chalk.yellow("Build the project:")} ${chalk.green("pnpm build")}
+2. ${chalk.yellow("Run the project:")} ${chalk.green("pnpm start")}
+3. ${chalk.yellow("Start in development mode:")} ${chalk.green("pnpm dev")}
+
+${chalk.magenta("Happy coding!")}
+
+${chalk.gray("For more information or to contribute to the project, visit the repository at:")}
+${chalk.blue("https://github.com/thekbbohara/create-ts")}
+`);
+};
 main();
