@@ -1,10 +1,6 @@
 ## kb-create-ts
 
-### Initial version:
-
-- pnpm required.
-- uses:
-  **Install globally**
+**Install globally**
 
 ```
 pnpm i kb-create-ts -g
@@ -20,8 +16,17 @@ pnpx kb-create-ts
 npx kb-create-ts
 ```
 
-### TODO!
-
-- [ ] use npx / yarn / pnpm respective to what user used to execute it.
-
 ![screenshort](create-ts.png)
+
+**Configs and options**
+
+- Valid flags
+  - --npm
+  - --pnpm
+  - --default
+- set default package manager
+
+```
+//<npx> kb-create-ts --default <npm>
+npx kb-create-ts --default pnpm
+```
