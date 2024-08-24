@@ -12,7 +12,18 @@
     "allowSyntheticDefaultImports": true,
     "declaration": false,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "strict": true, // Enable all strict type-checking options
+    "noImplicitAny": true, // Raise error on expressions with an implicit 'any' type
+    "strictNullChecks": true, // Ensure that null and undefined are handled explicitly
+    "strictFunctionTypes": true, // Check function parameter bivariance
+    "strictPropertyInitialization": true, // Ensure class properties are correctly initialized
+    "noImplicitThis": true, // Raise error on 'this' expressions with an implicit 'any' type
+    "alwaysStrict": true, // Enforce strict mode in all files
+    "noUnusedLocals": true, // Report errors on unused local variables
+    "noUnusedParameters": true, // Report errors on unused function parameters
+    "noImplicitReturns": true, // Ensure that all code paths in a function return a value
+    "noFallthroughCasesInSwitch": true // Ensure switch statements have a default case or handle all possible values
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
