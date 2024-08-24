@@ -1,5 +1,5 @@
 {
-  "name": "create-ts-latest",
+  "name": "@kb/create-ts",
   "version": "1.0.0",
   "description": "A CLI tool to bootstrap Typescript projects",
   "type": "module",
@@ -9,17 +9,25 @@
   "bin": {
     "create-ts": "dist/index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thekbbohara/create-ts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thekbbohara/create-ts/issues"
+  },
+  "homepage": "https://github.com/thekbbohara/create-ts#readme",
   "scripts": {
     "build": "tsup",
     "start": "node dist/index.js",
-    "dev": "npx nodemon",
+    "dev": "pnpx nodemon",
     "prepublish": "pnpm run build"
   },
   "keywords": [
     "typescript",
     "cli",
     "ts",
-    "create-ts-latest"
+    "create-ts"
   ],
   "author": "thekbbohara",
   "license": "ISC",
@@ -31,7 +39,9 @@
     "eslint": "^9.9.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "nodemon": "^3.1.4",
     "prettier": "^3.3.3",
+    "ts-node": "^10.9.2",
     "tsup": "^8.2.4",
     "typescript": "^5.5.4"
   },
