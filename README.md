@@ -8,21 +8,16 @@
 
 ```
 pnpm i kb-create-ts -g
-//npm i kb-create-ts -g
+//or
+npm i kb-create-ts -g
+```
+  **Execute with/out installing** 
+```
 pnpx kb-create-ts
-//npm i kb-create-ts -g
-```
-
-```
-pnpx kb-create-ts
-```
-
-or
-
-```
+//or
 npx kb-create-ts
 ```
 
 ### TODO!
 
-- [ ] use npx / yarn / pnpm respective to what they used to install it.
+- [ ] use npx / yarn / pnpm respective to what user used to execute it.
