@@ -1,6 +1,22 @@
-
-src
+# Ignore source code and development configuration files
+src/
 tsconfig.json
+tsup.config.ts
+.prettierrc
+.eslintrc
 nodemon.json
+
+# Ignore version control and metadata
+.git/
 .gitignore
+.changeset/
+
+# Ignore dependency directories and lock files
+node_modules/
 package-lock.json
+pnpm-lock.yaml
+
+# Optionally, ignore test and documentation directories if they exist
+tests/
+docs/
+
