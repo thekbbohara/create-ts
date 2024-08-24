@@ -1,5 +1,6 @@
 # Ignore source code and development configuration files
 src/
+debug/
 tsconfig.json
 tsup.config.ts
 .prettierrc

@@ -3,6 +3,7 @@ dist
 out
 build
 node_modules
+debug
 
 # Logs
 *.log*
