@@ -24,4 +24,4 @@ npx kb-create-ts
 
 - [ ] use npx / yarn / pnpm respective to what user used to execute it.
 
-![screenshort][./create-ts.png]
+![screenshort](create-ts.png)
