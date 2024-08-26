@@ -61,7 +61,10 @@ const main = async (pm: string) => {
 
   await execCommand(`${pm} pkg set scripts.build="tsc"`, appDir);
   await execCommand(`${pm} pkg set scripts.dev="npx nodemon"`, appDir);
-  await execCommand(`${pm} pkg set scripts.start="ts-node src/index.ts"`, appDir);
+  await execCommand(
+    `${pm} pkg set scripts.start="ts-node src/index.ts"`,
+    appDir,
+  );
 
   addNodemon(appDir);
   fs.mkdirSync(joinPath(appDir, "src"));
@@ -227,36 +230,41 @@ const validFlag: string[] = ["--npm", "--pnpm", "--default"];
 const validPM: string[] = ["npm", "pnpm"];
 // --- execution --- //
 const args = process.argv;
-if (args.length <= 2) {
-  main(DPM);
-} else {
-  const flag = args[2];
-  if (args.length === 3 && validFlag.includes(flag)) {
-    switch (flag) {
-      case "--npm":
-        await main("npm");
-        break;
-      case "--pnpm":
-        await main("pnpm");
-        break;
-      case "--default":
-        console.log(DPM);
-        process.exit(1);
-    }
-  } else if (
-    args.length === 4 &&
-    validFlag.includes(flag) &&
-    validPM.includes(args[3])
-  ) {
-    CONFIG["default_package_manager"] = args[3];
-    const configStr = JSON.stringify(CONFIG);
-    fs.writeFileSync(CONFIGPATH, configStr);
-    console.info("Changed default package manager to:", args[3]);
-    process.exit(0);
+
+const execution = async () => {
+  if (args.length <= 2) {
+    await main(DPM);
   } else {
-    console.error(chalk.red("Invalid arguments."));
-    console.log(chalk.magenta("Valid flags"), validFlag);
-    console.log(chalk.magenta("supported package managers"), validPM);
-    process.exit(1);
+    const flag = args[2];
+    if (args.length === 3 && validFlag.includes(flag)) {
+      switch (flag) {
+        case "--npm":
+          await main("npm");
+          break;
+        case "--pnpm":
+          await main("pnpm");
+          break;
+        case "--default":
+          console.log(DPM);
+          process.exit(1);
+      }
+    } else if (
+      args.length === 4 &&
+      validFlag.includes(flag) &&
+      validPM.includes(args[3])
+    ) {
+      CONFIG["default_package_manager"] = args[3];
+      const configStr = JSON.stringify(CONFIG);
+      fs.writeFileSync(CONFIGPATH, configStr);
+      console.info("Changed default package manager to:", args[3]);
+      process.exit(0);
+    } else {
+      console.error(chalk.red("Invalid arguments."));
+      console.log(chalk.magenta("Valid flags"), validFlag);
+      console.log(chalk.magenta("supported package managers"), validPM);
+      process.exit(1);
+    }
   }
-}
+};
+
+execution();

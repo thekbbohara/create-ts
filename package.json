@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/thekbbohara/create-ts#readme",
   "scripts": {
-    "build": "tsup",
+    "build": "bun build src/index.ts --outdir dist --target node",
     "start": "node dist/index.js",
     "dev": "tsc --outDir debug && node debug/index.js",
     "prepublish": "pnpm run build"
